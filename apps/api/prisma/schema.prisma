@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/// The application has a single demo user, created by prisma/seed.ts.
+model User {
+  id    String @id @default(cuid())
+  email String @unique
+  name  String
+
+  /// Stripe customer id. Null until the first checkout session is created.
+  stripeCustomerId String? @unique
+
+  subscription   Subscription?
+  recentSearches RecentSearch[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+/// Local read model of the Stripe subscription. Stripe webhooks are the only
+/// write path into this table. One row per user at most.
+model Subscription {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  stripeSubscriptionId String @unique
+  stripeCustomerId     String
+  stripePriceId        String
+
+  /// Stripe subscription status, stored as a string rather than an enum so a new
+  /// Stripe status value cannot turn a webhook into a failed write.
+  status String
+
+  currentPeriodEnd   DateTime?
+  cancelAtPeriodEnd  Boolean   @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+}
+
+/// A search term the user has used. Written with an upsert on
+/// (userId, term, language), so repeating a search updates the existing row
+/// instead of adding a duplicate.
+model RecentSearch {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  /// Stored trimmed and lowercased, which is also what makes the unique
+  /// constraint below behave as "the same search".
+  term        String
+  language    String
+  resultCount Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, term, language])
+  @@index([userId, updatedAt])
+}
+
+/// Stripe event ids that have already been handled. Inserting the id is the
+/// first statement of every webhook transaction, so a duplicate delivery hits
+/// the primary key and is skipped.
+model ProcessedStripeEvent {
+  eventId     String   @id
+  type        String
+  processedAt DateTime @default(now())
+}

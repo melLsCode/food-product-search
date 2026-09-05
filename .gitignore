@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+build/
+apps/web/.next/
+apps/web/out/
+*.tsbuildinfo
+# Test and tooling output
+coverage/
+.vitest/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS and editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json

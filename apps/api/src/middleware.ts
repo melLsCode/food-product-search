@@ -15,7 +15,11 @@ export const notFound: RequestHandler = (_req, _res, next) => {
 export const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
   if (error instanceof AppError) {
     res.status(error.status).json({
-      error: { code: error.code, message: error.message },
+      error: {
+        code: error.code,
+        message: error.message,
+        ...(error.details === undefined ? {} : { details: error.details }),
+      },
     });
     return;
   }

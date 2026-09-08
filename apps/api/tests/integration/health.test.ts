@@ -6,11 +6,11 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 // reachable and unreachable - without needing a real MySQL instance.
 const queryRaw = vi.hoisted(() => vi.fn());
 
-vi.mock('../src/prisma.js', () => ({
+vi.mock('../../src/prisma.js', () => ({
   prisma: { $queryRaw: queryRaw },
 }));
 
-const { createApp } = await import('../src/app.js');
+const { createApp } = await import('../../src/app.js');
 
 describe('GET /health', () => {
   beforeEach(() => {

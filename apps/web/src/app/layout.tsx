@@ -11,6 +11,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
+    // The selected language is a search parameter rather than a route segment, so
+    // the document language is set per page by the pages that know it.
     <html lang="en">
       <body className="min-h-screen bg-white text-slate-900 antialiased">{children}</body>
     </html>

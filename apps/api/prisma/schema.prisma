@@ -41,6 +41,12 @@ model Subscription {
   currentPeriodEnd   DateTime?
   cancelAtPeriodEnd  Boolean   @default(false)
 
+  /// `created` of the Stripe event whose state this row currently holds. Stripe
+  /// does not guarantee delivery order, so an incoming event older than this is
+  /// stale and must not overwrite the row. Null on rows written before this
+  /// column existed, which are treated as older than any event.
+  lastStripeEventCreated DateTime?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

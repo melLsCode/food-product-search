@@ -10,7 +10,23 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   PORT: z.coerce.number().int().positive().default(4000),
   DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
+
+  /** Origin allowed by CORS, and the base for Stripe's return URLs. */
   WEB_ORIGIN: z.string().url().default('http://localhost:3000'),
+
+  /** The application has a single demo user, created by prisma/seed.ts. */
+  DEMO_USER_EMAIL: z.string().email().default('demo@food-product-search.local'),
+
+  /** Open Food Facts requires an identifying User-Agent: AppName/Version (contact). */
+  OFF_USER_AGENT: z
+    .string()
+    .min(1)
+    .default('food-product-search/0.1 (assessment project)'),
+  OFF_TIMEOUT_MS: z.coerce.number().int().positive().default(5000),
+
+  STRIPE_SECRET_KEY: z.string().min(1, 'STRIPE_SECRET_KEY is required'),
+  STRIPE_PRICE_ID: z.string().min(1, 'STRIPE_PRICE_ID is required'),
+  STRIPE_WEBHOOK_SECRET: z.string().min(1, 'STRIPE_WEBHOOK_SECRET is required'),
 });
 
 function loadEnv() {

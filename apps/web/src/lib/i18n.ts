@@ -93,7 +93,16 @@ const en = {
 
   'billing.subscribe': 'Subscribe – monthly',
   'billing.subscribing': 'Redirecting to Stripe…',
+  'billing.manage': 'Manage subscription',
+  'billing.managing': 'Opening Stripe…',
   'billing.active': 'Subscription active',
+  'billing.active.title': 'Your subscription is active',
+  'billing.active.body':
+    'You can manage or cancel it in Stripe. Nutrition details stay unlocked while it is active.',
+  'billing.inactive.title': 'Your subscription is not active',
+  'billing.inactive.body':
+    'Nutrition details are locked. You can subscribe again at any time.',
+  'billing.inactive': 'Subscription inactive',
   'billing.renews': 'Renews on {date}',
   'billing.cancelsOn': 'Cancels on {date}',
   'billing.success.title': 'Thank you, your subscription is being activated',
@@ -109,6 +118,7 @@ const en = {
   'error.VALIDATION_ERROR': 'Please check your search term and try again.',
   'error.NOT_FOUND': 'This product could not be found.',
   'error.UPSTREAM_ERROR': 'Open Food Facts is unavailable right now. Please try again shortly.',
+  'error.BILLING_UNAVAILABLE': 'Billing is unavailable right now. Please try again shortly.',
   'error.SUBSCRIPTION_REQUIRED': 'An active subscription is required.',
   'error.CONFLICT': 'You already have an active subscription.',
   'error.INTERNAL_ERROR': 'An unexpected error occurred.',
@@ -182,7 +192,16 @@ const nl: Dictionary = {
 
   'billing.subscribe': 'Abonneren – maandelijks',
   'billing.subscribing': 'Doorsturen naar Stripe…',
+  'billing.manage': 'Abonnement beheren',
+  'billing.managing': 'Stripe openen…',
   'billing.active': 'Abonnement actief',
+  'billing.active.title': 'Je abonnement is actief',
+  'billing.active.body':
+    'Je kunt het in Stripe beheren of opzeggen. Voedingswaarden blijven ontgrendeld zolang het actief is.',
+  'billing.inactive.title': 'Je abonnement is niet actief',
+  'billing.inactive.body':
+    'Voedingswaarden zijn vergrendeld. Je kunt je altijd opnieuw abonneren.',
+  'billing.inactive': 'Abonnement inactief',
   'billing.renews': 'Verlengt op {date}',
   'billing.cancelsOn': 'Stopt op {date}',
   'billing.success.title': 'Bedankt, je abonnement wordt geactiveerd',
@@ -198,6 +217,7 @@ const nl: Dictionary = {
   'error.VALIDATION_ERROR': 'Controleer je zoekterm en probeer het opnieuw.',
   'error.NOT_FOUND': 'Dit product kon niet worden gevonden.',
   'error.UPSTREAM_ERROR': 'Open Food Facts is nu niet bereikbaar. Probeer het zo weer.',
+  'error.BILLING_UNAVAILABLE': 'Facturatie is nu niet beschikbaar. Probeer het zo weer.',
   'error.SUBSCRIPTION_REQUIRED': 'Een actief abonnement is vereist.',
   'error.CONFLICT': 'Je hebt al een actief abonnement.',
   'error.INTERNAL_ERROR': 'Er is een onverwachte fout opgetreden.',
@@ -267,7 +287,16 @@ const de: Dictionary = {
 
   'billing.subscribe': 'Abonnieren – monatlich',
   'billing.subscribing': 'Weiterleitung zu Stripe…',
+  'billing.manage': 'Abonnement verwalten',
+  'billing.managing': 'Stripe wird geöffnet…',
   'billing.active': 'Abonnement aktiv',
+  'billing.active.title': 'Ihr Abonnement ist aktiv',
+  'billing.active.body':
+    'Sie können es in Stripe verwalten oder kündigen. Nährwerte bleiben freigeschaltet, solange es aktiv ist.',
+  'billing.inactive.title': 'Ihr Abonnement ist nicht aktiv',
+  'billing.inactive.body':
+    'Nährwertangaben sind gesperrt. Sie können jederzeit erneut abonnieren.',
+  'billing.inactive': 'Abonnement inaktiv',
   'billing.renews': 'Verlängert sich am {date}',
   'billing.cancelsOn': 'Endet am {date}',
   'billing.success.title': 'Vielen Dank, Ihr Abonnement wird aktiviert',
@@ -283,6 +312,7 @@ const de: Dictionary = {
   'error.VALIDATION_ERROR': 'Bitte prüfen Sie Ihren Suchbegriff und versuchen Sie es erneut.',
   'error.NOT_FOUND': 'Dieses Produkt wurde nicht gefunden.',
   'error.UPSTREAM_ERROR': 'Open Food Facts ist derzeit nicht erreichbar. Bitte später erneut versuchen.',
+  'error.BILLING_UNAVAILABLE': 'Die Abrechnung ist derzeit nicht verfügbar. Bitte später erneut versuchen.',
   'error.SUBSCRIPTION_REQUIRED': 'Ein aktives Abonnement ist erforderlich.',
   'error.CONFLICT': 'Sie haben bereits ein aktives Abonnement.',
   'error.INTERNAL_ERROR': 'Ein unerwarteter Fehler ist aufgetreten.',
@@ -352,7 +382,16 @@ const fr: Dictionary = {
 
   'billing.subscribe': 'S’abonner – mensuel',
   'billing.subscribing': 'Redirection vers Stripe…',
+  'billing.manage': 'Gérer l’abonnement',
+  'billing.managing': 'Ouverture de Stripe…',
   'billing.active': 'Abonnement actif',
+  'billing.active.title': 'Votre abonnement est actif',
+  'billing.active.body':
+    'Vous pouvez le gérer ou l’annuler dans Stripe. Les valeurs nutritionnelles restent débloquées tant qu’il est actif.',
+  'billing.inactive.title': 'Votre abonnement n’est pas actif',
+  'billing.inactive.body':
+    'Les valeurs nutritionnelles sont verrouillées. Vous pouvez vous réabonner à tout moment.',
+  'billing.inactive': 'Abonnement inactif',
   'billing.renews': 'Renouvellement le {date}',
   'billing.cancelsOn': 'Se termine le {date}',
   'billing.success.title': 'Merci, votre abonnement est en cours d’activation',
@@ -368,6 +407,7 @@ const fr: Dictionary = {
   'error.VALIDATION_ERROR': 'Vérifiez votre terme de recherche et réessayez.',
   'error.NOT_FOUND': 'Ce produit est introuvable.',
   'error.UPSTREAM_ERROR': 'Open Food Facts est indisponible pour le moment. Réessayez bientôt.',
+  'error.BILLING_UNAVAILABLE': 'La facturation est indisponible pour le moment. Réessayez bientôt.',
   'error.SUBSCRIPTION_REQUIRED': 'Un abonnement actif est requis.',
   'error.CONFLICT': 'Vous avez déjà un abonnement actif.',
   'error.INTERNAL_ERROR': 'Une erreur inattendue est survenue.',

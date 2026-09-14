@@ -45,3 +45,13 @@ export class UpstreamError extends AppError {
     super(502, 'UPSTREAM_ERROR', message);
   }
 }
+
+/**
+ * Stripe-hosted billing failed to produce a usable URL. Separate from
+ * UPSTREAM_ERROR so the UI does not blame Open Food Facts for a Stripe outage.
+ */
+export class BillingUnavailableError extends AppError {
+  constructor(message = 'Billing is unavailable right now') {
+    super(502, 'BILLING_UNAVAILABLE', message);
+  }
+}

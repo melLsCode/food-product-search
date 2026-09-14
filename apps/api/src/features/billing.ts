@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { getDemoUser } from '../demoUser.js';
 import { env } from '../env.js';
-import { ConflictError, UpstreamError } from '../errors.js';
+import { BillingUnavailableError, ConflictError, SubscriptionRequiredError, UpstreamError } from '../errors.js';
 import { prisma } from '../prisma.js';
 import { stripe } from '../stripe.js';
 import { getSubscriptionState } from '../subscription.js';
@@ -60,6 +60,31 @@ billingRouter.post('/checkout', async (req, res) => {
 
   if (!session.url) {
     throw new UpstreamError('Stripe did not return a checkout URL');
+  }
+
+  res.status(201).json({ url: session.url });
+});
+
+/**
+ * Opens Stripe's hosted Customer Portal so the demo user can cancel (or
+ * otherwise manage) the subscription. Local entitlement still changes only when
+ * the resulting customer.subscription.* webhook arrives.
+ */
+billingRouter.post('/portal', async (req, res) => {
+  const { language } = parseInput(checkoutBodySchema, req.body ?? {});
+  const user = await getDemoUser();
+
+  if (!user.stripeCustomerId) {
+    throw new SubscriptionRequiredError();
+  }
+
+  const session = await stripe.billingPortal.sessions.create({
+    customer: user.stripeCustomerId,
+    return_url: `${env.WEB_ORIGIN}/billing/success?language=${language}`,
+  });
+
+  if (!session.url) {
+    throw new BillingUnavailableError('Stripe did not return a billing portal URL');
   }
 
   res.status(201).json({ url: session.url });

@@ -198,8 +198,9 @@ Errors always use the same envelope with a stable code:
 
 Codes: `VALIDATION_ERROR` (400), `SUBSCRIPTION_REQUIRED` (402), `NOT_FOUND` (404),
 `CONFLICT` (409), `INVALID_SIGNATURE` (400, webhook only), `UPSTREAM_ERROR` (502),
-`INTERNAL_ERROR` (500). The frontend maps codes to translated messages, so the
-API never returns user-facing prose.
+`BILLING_UNAVAILABLE` (502, Stripe Customer Portal URL missing), `INTERNAL_ERROR`
+(500). The frontend maps codes to translated messages, so the API never returns
+user-facing prose.
 
 ## Stripe test-mode setup
 
@@ -226,6 +227,16 @@ The webhook is the **only** writer of subscription state, so nutrition unlocks
 once `customer.subscription.created` has been received. If you subscribe without
 a listener running, replay the event from the dashboard: the handler is
 idempotent, so replaying is safe.
+
+To cancel, use **Manage subscription** in the app. That opens Stripe's Customer
+Portal for the existing customer; this project never cancels the subscription
+itself. After you cancel in the portal, Stripe sends `customer.subscription.updated`
+or `.deleted`, and the existing webhook updates local state so nutrition locks
+again.
+
+The Customer Portal must be turned on in the Stripe Dashboard (test mode):
+**Settings → Billing → Customer portal**. Enable subscription cancellation
+there. No extra environment variable is required.
 
 Events handled: `checkout.session.completed` (links the Stripe customer to the
 user), and `customer.subscription.created` / `.updated` / `.deleted` (write
@@ -322,7 +333,8 @@ configuration a framework would need.
 
 - One hard-coded demo user and no authentication. Anyone who can reach the API
   acts as that user. Production would need real auth and per-user entitlement.
-- Stripe test mode only. There is no cancel or upgrade UI and no Billing Portal.
+- Stripe test mode only. There is no in-app upgrade UI and no custom cancel
+  API: cancellation goes through Stripe's Customer Portal and back via webhook.
 - Local webhooks require the Stripe CLI or a tunnel. A missed event has to be
   replayed from the dashboard (safe, since the handler is idempotent).
 - Webhook ordering is resolved at one-second resolution, because that is what

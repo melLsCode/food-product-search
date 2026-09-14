@@ -1,4 +1,5 @@
 import { CheckCircleIcon, LockIcon } from '@/components/Icons';
+import { ManageSubscriptionButton } from '@/components/ManageSubscriptionButton';
 import { SubscribeButton } from '@/components/SubscribeButton';
 import { formatNutrientValue } from '@/lib/format';
 import type { Language, MessageKey, Translate } from '@/lib/i18n';
@@ -131,6 +132,10 @@ export function NutritionTable({
           );
         })}
       </dl>
+
+      <div className="border-t border-slate-100 px-6 py-4 sm:px-8">
+        <ManageSubscriptionButton language={language} />
+      </div>
     </section>
   );
 }

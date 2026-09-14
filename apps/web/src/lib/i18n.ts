@@ -33,8 +33,18 @@ export const LANGUAGE_NAMES: Record<Language, string> = {
 const en = {
   'app.title': 'Food Product Search',
   'app.tagline': 'Search packaged foods from the Open Food Facts database.',
+  'app.loading': 'Loading…',
 
   'language.label': 'Language',
+
+  'home.hero.title': 'Discover what’s inside your food.',
+  'home.hero.subtitle':
+    'Search packaged food products and explore ingredients, categories, and nutrition information.',
+
+  'footer.attribution': 'Product data provided by',
+
+  'notFound.title': 'This page does not exist',
+  'notFound.body': 'The link may be outdated. Start a new search instead.',
 
   'search.label': 'Search term',
   'search.placeholder': 'e.g. chocolate',
@@ -51,10 +61,12 @@ const en = {
 
   'product.back': 'Back to search',
   'product.loading': 'Loading product…',
+  'product.details': 'Product details',
   'product.brand': 'Brand',
   'product.quantity': 'Quantity',
   'product.categories': 'Categories',
   'product.ingredients': 'Ingredients',
+  'product.barcode': 'Barcode',
   'product.unknown': 'Not available',
   'product.fallbackLanguage': 'Shown in {language}, no translation available.',
   'product.noImage': 'No image',
@@ -63,9 +75,13 @@ const en = {
   'nutrition.per': 'Per 100 g',
   'nutrition.servingSize': 'Serving size: {size}',
   'nutrition.unavailable': 'Open Food Facts has no nutrition data for this product.',
-  'nutrition.locked.title': 'Nutrition details are locked',
+  'nutrition.locked.title': 'Unlock nutrition details',
   'nutrition.locked.body':
-    'Detailed nutrition information is available with an active subscription.',
+    'Detailed nutrition information is included with an active subscription.',
+  'nutrition.locked.included':
+    'Energy, fat, saturates, carbohydrates, sugars, fibre, protein and salt per 100 g.',
+  'nutrition.locked.price': 'US$5 per month · cancel anytime',
+  'nutrition.locked.cta': 'Unlock nutrition',
   'nutrition.energyKcal': 'Energy',
   'nutrition.fat': 'Fat',
   'nutrition.saturatedFat': 'of which saturates',
@@ -106,8 +122,18 @@ type Dictionary = Record<MessageKey, string>;
 const nl: Dictionary = {
   'app.title': 'Voedselproducten zoeken',
   'app.tagline': 'Zoek verpakte levensmiddelen uit de Open Food Facts-database.',
+  'app.loading': 'Laden…',
 
   'language.label': 'Taal',
+
+  'home.hero.title': 'Ontdek wat er in je eten zit.',
+  'home.hero.subtitle':
+    'Zoek verpakte levensmiddelen en bekijk ingrediënten, categorieën en voedingswaarden.',
+
+  'footer.attribution': 'Productgegevens van',
+
+  'notFound.title': 'Deze pagina bestaat niet',
+  'notFound.body': 'De link is misschien verouderd. Begin een nieuwe zoekopdracht.',
 
   'search.label': 'Zoekterm',
   'search.placeholder': 'bijv. chocolade',
@@ -124,10 +150,12 @@ const nl: Dictionary = {
 
   'product.back': 'Terug naar zoeken',
   'product.loading': 'Product laden…',
+  'product.details': 'Productgegevens',
   'product.brand': 'Merk',
   'product.quantity': 'Hoeveelheid',
   'product.categories': 'Categorieën',
   'product.ingredients': 'Ingrediënten',
+  'product.barcode': 'Barcode',
   'product.unknown': 'Niet beschikbaar',
   'product.fallbackLanguage': 'Weergegeven in het {language}, geen vertaling beschikbaar.',
   'product.noImage': 'Geen afbeelding',
@@ -136,9 +164,13 @@ const nl: Dictionary = {
   'nutrition.per': 'Per 100 g',
   'nutrition.servingSize': 'Portiegrootte: {size}',
   'nutrition.unavailable': 'Open Food Facts heeft geen voedingswaarden voor dit product.',
-  'nutrition.locked.title': 'Voedingswaarden zijn vergrendeld',
+  'nutrition.locked.title': 'Voedingswaarden ontgrendelen',
   'nutrition.locked.body':
-    'Gedetailleerde voedingsinformatie is beschikbaar met een actief abonnement.',
+    'Gedetailleerde voedingsinformatie is inbegrepen bij een actief abonnement.',
+  'nutrition.locked.included':
+    'Energie, vetten, verzadigde vetten, koolhydraten, suikers, vezels, eiwitten en zout per 100 g.',
+  'nutrition.locked.price': 'US$5 per maand · maandelijks opzegbaar',
+  'nutrition.locked.cta': 'Voedingswaarden ontgrendelen',
   'nutrition.energyKcal': 'Energie',
   'nutrition.fat': 'Vetten',
   'nutrition.saturatedFat': 'waarvan verzadigd',
@@ -175,8 +207,18 @@ const nl: Dictionary = {
 const de: Dictionary = {
   'app.title': 'Lebensmittelsuche',
   'app.tagline': 'Durchsuchen Sie verpackte Lebensmittel aus der Open-Food-Facts-Datenbank.',
+  'app.loading': 'Wird geladen…',
 
   'language.label': 'Sprache',
+
+  'home.hero.title': 'Entdecken Sie, was in Ihren Lebensmitteln steckt.',
+  'home.hero.subtitle':
+    'Durchsuchen Sie verpackte Lebensmittel und sehen Sie Zutaten, Kategorien und Nährwerte.',
+
+  'footer.attribution': 'Produktdaten von',
+
+  'notFound.title': 'Diese Seite existiert nicht',
+  'notFound.body': 'Der Link ist möglicherweise veraltet. Starten Sie eine neue Suche.',
 
   'search.label': 'Suchbegriff',
   'search.placeholder': 'z. B. Schokolade',
@@ -193,10 +235,12 @@ const de: Dictionary = {
 
   'product.back': 'Zurück zur Suche',
   'product.loading': 'Produkt wird geladen…',
+  'product.details': 'Produktdetails',
   'product.brand': 'Marke',
   'product.quantity': 'Menge',
   'product.categories': 'Kategorien',
   'product.ingredients': 'Zutaten',
+  'product.barcode': 'Barcode',
   'product.unknown': 'Nicht verfügbar',
   'product.fallbackLanguage': 'Angezeigt auf {language}, keine Übersetzung verfügbar.',
   'product.noImage': 'Kein Bild',
@@ -205,9 +249,13 @@ const de: Dictionary = {
   'nutrition.per': 'Pro 100 g',
   'nutrition.servingSize': 'Portionsgröße: {size}',
   'nutrition.unavailable': 'Open Food Facts hat keine Nährwerte für dieses Produkt.',
-  'nutrition.locked.title': 'Nährwertangaben sind gesperrt',
+  'nutrition.locked.title': 'Nährwertangaben freischalten',
   'nutrition.locked.body':
-    'Detaillierte Nährwertangaben sind mit einem aktiven Abonnement verfügbar.',
+    'Detaillierte Nährwertangaben sind in einem aktiven Abonnement enthalten.',
+  'nutrition.locked.included':
+    'Energie, Fett, gesättigte Fettsäuren, Kohlenhydrate, Zucker, Ballaststoffe, Eiweiß und Salz pro 100 g.',
+  'nutrition.locked.price': 'US$5 pro Monat · monatlich kündbar',
+  'nutrition.locked.cta': 'Nährwerte freischalten',
   'nutrition.energyKcal': 'Energie',
   'nutrition.fat': 'Fett',
   'nutrition.saturatedFat': 'davon gesättigte Fettsäuren',
@@ -244,8 +292,18 @@ const de: Dictionary = {
 const fr: Dictionary = {
   'app.title': 'Recherche de produits alimentaires',
   'app.tagline': 'Recherchez des aliments emballés dans la base Open Food Facts.',
+  'app.loading': 'Chargement…',
 
   'language.label': 'Langue',
+
+  'home.hero.title': 'Découvrez ce que contiennent vos aliments.',
+  'home.hero.subtitle':
+    'Recherchez des aliments emballés et explorez les ingrédients, les catégories et les valeurs nutritionnelles.',
+
+  'footer.attribution': 'Données produits fournies par',
+
+  'notFound.title': 'Cette page n’existe pas',
+  'notFound.body': 'Le lien est peut-être obsolète. Lancez une nouvelle recherche.',
 
   'search.label': 'Terme de recherche',
   'search.placeholder': 'ex. chocolat',
@@ -262,10 +320,12 @@ const fr: Dictionary = {
 
   'product.back': 'Retour à la recherche',
   'product.loading': 'Chargement du produit…',
+  'product.details': 'Détails du produit',
   'product.brand': 'Marque',
   'product.quantity': 'Quantité',
   'product.categories': 'Catégories',
   'product.ingredients': 'Ingrédients',
+  'product.barcode': 'Code-barres',
   'product.unknown': 'Non disponible',
   'product.fallbackLanguage': 'Affiché en {language}, aucune traduction disponible.',
   'product.noImage': 'Pas d’image',
@@ -274,9 +334,13 @@ const fr: Dictionary = {
   'nutrition.per': 'Pour 100 g',
   'nutrition.servingSize': 'Portion : {size}',
   'nutrition.unavailable': 'Open Food Facts n’a pas de valeurs nutritionnelles pour ce produit.',
-  'nutrition.locked.title': 'Les valeurs nutritionnelles sont verrouillées',
+  'nutrition.locked.title': 'Débloquer les valeurs nutritionnelles',
   'nutrition.locked.body':
-    'Les informations nutritionnelles détaillées sont accessibles avec un abonnement actif.',
+    'Les informations nutritionnelles détaillées sont incluses avec un abonnement actif.',
+  'nutrition.locked.included':
+    'Énergie, matières grasses, acides gras saturés, glucides, sucres, fibres, protéines et sel pour 100 g.',
+  'nutrition.locked.price': '5 US$ par mois · résiliable à tout moment',
+  'nutrition.locked.cta': 'Débloquer les valeurs',
   'nutrition.energyKcal': 'Énergie',
   'nutrition.fat': 'Matières grasses',
   'nutrition.saturatedFat': 'dont acides gras saturés',

@@ -1,12 +1,15 @@
+import Link from 'next/link';
 import { Suspense } from 'react';
 
-import { PageHeader } from '@/components/PageHeader';
+import { SearchIcon } from '@/components/Icons';
+import { PageShell } from '@/components/PageShell';
 import { ProductCard } from '@/components/ProductCard';
 import { SearchForm } from '@/components/SearchForm';
 import { EmptyState, ErrorState, ResultsSkeleton } from '@/components/States';
 import { getRecentSearches, searchProducts } from '@/lib/api';
 import { getTranslator, toLanguage, translateErrorCode, type Language, type Translate } from '@/lib/i18n';
 import type { RecentSearch } from '@/lib/types';
+import { CONTAINER, EYEBROW, SECTION_TITLE } from '@/lib/ui';
 
 /** The search term and language live in the URL, so this page is always dynamic. */
 export const dynamic = 'force-dynamic';
@@ -22,13 +25,30 @@ export default async function SearchPage({ searchParams }: PageProps) {
   const query = params.q?.trim() ?? '';
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
-      <PageHeader language={language} translate={translate} />
+    <PageShell language={language} translate={translate}>
+      {/* Hero. The subtle gradient and ring give the search area a distinct
+          surface without introducing a second background colour. */}
+      <section className="border-b border-slate-200 bg-gradient-to-b from-white via-white to-slate-50">
+        <div className={`${CONTAINER} py-14 sm:py-20`}>
+          <div className="mx-auto max-w-2xl text-center">
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+              {translate('home.hero.title')}
+            </h1>
+            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
+              {translate('home.hero.subtitle')}
+            </p>
+          </div>
 
-      <p className="mb-4 text-sm text-slate-600">{translate('app.tagline')}</p>
-      <SearchForm query={query} language={language} translate={translate} />
+          <div className="mx-auto mt-8 max-w-2xl sm:mt-10">
+            <SearchForm query={query} language={language} translate={translate} />
+            <p className="mt-3 text-center text-xs text-slate-500">
+              {translate('search.start.body')}
+            </p>
+          </div>
+        </div>
+      </section>
 
-      <div className="mt-8">
+      <div className={`${CONTAINER} py-10 sm:py-12`}>
         {query ? (
           // Keyed on the query so a new search shows the skeleton again while the
           // server fetches, instead of leaving the previous results on screen.
@@ -44,12 +64,12 @@ export default async function SearchPage({ searchParams }: PageProps) {
             body={translate('search.start.body')}
           />
         )}
-      </div>
 
-      <Suspense fallback={null}>
-        <RecentSearches language={language} translate={translate} />
-      </Suspense>
-    </main>
+        <Suspense fallback={null}>
+          <RecentSearches language={language} translate={translate} />
+        </Suspense>
+      </div>
+    </PageShell>
   );
 }
 
@@ -83,14 +103,14 @@ async function Results({
 
   return (
     <section>
-      <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="font-semibold text-slate-900">{translate('search.results', { query })}</h2>
+      <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <h2 className={SECTION_TITLE}>{translate('search.results', { query })}</h2>
         <p className="text-sm text-slate-500">
           {translate('search.count', { count: products.length })}
         </p>
       </div>
 
-      <ul className="grid gap-3 sm:grid-cols-2">
+      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((product) => (
           <ProductCard
             key={product.code}
@@ -116,8 +136,8 @@ async function RecentSearches({
   const searches: RecentSearch[] = result.ok ? result.data.searches : [];
 
   return (
-    <section className="mt-10 border-t border-slate-200 pt-5">
-      <h2 className="mb-3 text-sm font-semibold text-slate-900">{translate('search.recent')}</h2>
+    <section className="mt-14 border-t border-slate-200 pt-8">
+      <h2 className={`${EYEBROW} mb-4`}>{translate('search.recent')}</h2>
 
       {searches.length === 0 ? (
         <p className="text-sm text-slate-500">{translate('search.recent.empty')}</p>
@@ -125,13 +145,18 @@ async function RecentSearches({
         <ul className="flex flex-wrap gap-2">
           {searches.map((search) => (
             <li key={`${search.term}-${search.language}`}>
-              <a
+              {/* next/link rather than a bare anchor, so re-running a recent search
+                  is a client navigation instead of a full document load. */}
+              <Link
                 href={`/?q=${encodeURIComponent(search.term)}&language=${search.language}`}
-                className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-3 py-1 text-sm text-slate-700 transition hover:border-slate-500 hover:bg-slate-50"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white py-1.5 pl-3 pr-3.5 text-sm text-slate-700 shadow-sm transition duration-200 hover:border-brand-300 hover:text-brand-700"
               >
+                <SearchIcon className="h-3.5 w-3.5 text-slate-400" />
                 <span>{search.term}</span>
-                <span className="text-xs uppercase text-slate-400">{search.language}</span>
-              </a>
+                <span className="text-xs font-medium uppercase text-slate-400">
+                  {search.language}
+                </span>
+              </Link>
             </li>
           ))}
         </ul>

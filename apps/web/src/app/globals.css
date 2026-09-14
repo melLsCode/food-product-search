@@ -1,1 +1,51 @@
 @import 'tailwindcss';
+
+/*
+ * Design tokens. Every colour, radius and type decision in the UI resolves to
+ * one of these, so the visual language can be adjusted here instead of swept
+ * through components. Tailwind v4 turns each custom property into utilities,
+ * so --color-brand-600 is available as bg-brand-600, text-brand-600 and so on.
+ *
+ * The font is a system stack rather than a webfont: it keeps the build hermetic
+ * (no network fetch at build time) and renders natively on every platform.
+ */
+@theme {
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif;
+
+  /* Brand green, used for primary actions and the subscription surfaces. */
+  --color-brand-50: #f0fdf4;
+  --color-brand-100: #dcfce7;
+  --color-brand-200: #bbf7d0;
+  --color-brand-300: #86efac;
+  --color-brand-400: #4ade80;
+  --color-brand-500: #22c55e;
+  --color-brand-600: #16a34a;
+  --color-brand-700: #15803d;
+  --color-brand-800: #166534;
+  --color-brand-900: #14532d;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /*
+   * One focus indicator for the whole application. Controls that need a softer
+   * treatment (text inputs, selects) opt out with focus-visible:outline-none and
+   * declare their own ring, so there is never more than one indicator visible.
+   */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 2px;
+  }
+
+  /* Long product names and ingredient lists should never blow out a layout. */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}

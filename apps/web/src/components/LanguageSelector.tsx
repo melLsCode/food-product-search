@@ -3,7 +3,9 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
 
+import { GlobeIcon, SpinnerIcon } from '@/components/Icons';
 import { LANGUAGES, LANGUAGE_NAMES, getTranslator, type Language } from '@/lib/i18n';
+import { SELECT } from '@/lib/ui';
 
 /**
  * Manual language selector. The language lives in the URL, so switching it is a
@@ -28,13 +30,20 @@ export function LanguageSelector({ language }: { language: Language }) {
   }
 
   return (
-    <label className="flex items-center gap-2 text-sm">
-      <span className="text-slate-600">{translate('language.label')}</span>
+    <label className="flex shrink-0 items-center gap-2">
+      {/* The icon carries the meaning on a narrow screen; the text label stays in
+          the accessibility tree at every width rather than being dropped. */}
+      <span className="text-slate-400" aria-hidden="true">
+        {isPending ? <SpinnerIcon className="h-4 w-4" /> : <GlobeIcon className="h-4 w-4" />}
+      </span>
+      <span className="sr-only sm:not-sr-only sm:text-sm sm:text-slate-600">
+        {translate('language.label')}
+      </span>
       <select
         value={language}
         onChange={(event) => onChange(event.target.value)}
         disabled={isPending}
-        className="rounded-md border border-slate-300 bg-white px-2 py-1.5 text-slate-900 disabled:opacity-60"
+        className={SELECT}
       >
         {LANGUAGES.map((option) => (
           <option key={option} value={option}>

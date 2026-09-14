@@ -1,7 +1,10 @@
 import Link from 'next/link';
 
-import { PageHeader } from '@/components/PageHeader';
+import { ArrowLeftIcon, SearchIcon } from '@/components/Icons';
+import { PageShell } from '@/components/PageShell';
+import { SubscribeButton } from '@/components/SubscribeButton';
 import { getTranslator, toLanguage } from '@/lib/i18n';
+import { BUTTON_SECONDARY, CARD, CONTAINER_NARROW } from '@/lib/ui';
 
 export default async function BillingCancelPage({
   searchParams,
@@ -12,22 +15,31 @@ export default async function BillingCancelPage({
   const translate = getTranslator(language);
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
-      <PageHeader language={language} translate={translate} />
+    <PageShell language={language} translate={translate}>
+      <div className={`${CONTAINER_NARROW} py-12 sm:py-16`}>
+        {/* Neutral, not red: nothing failed here, the user simply chose not to
+            continue, so the page offers both ways forward without alarm. */}
+        <div className={`${CARD} px-6 py-10 text-center sm:px-10`}>
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-slate-500">
+            <SearchIcon className="h-7 w-7" />
+          </div>
 
-      <div className="rounded-lg border border-slate-200 p-6">
-        <h1 className="text-lg font-semibold text-slate-900">
-          {translate('billing.cancel.title')}
-        </h1>
-        <p className="mt-1 text-sm text-slate-600">{translate('billing.cancel.body')}</p>
+          <h1 className="mt-6 text-2xl font-bold tracking-tight text-slate-900">
+            {translate('billing.cancel.title')}
+          </h1>
+          <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-slate-600">
+            {translate('billing.cancel.body')}
+          </p>
 
-        <Link
-          href={`/?language=${language}`}
-          className="mt-4 inline-block rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white"
-        >
-          {translate('product.back')}
-        </Link>
+          <div className="mt-8 flex flex-col-reverse items-center justify-center gap-3 sm:flex-row">
+            <Link href={`/?language=${language}`} className={BUTTON_SECONDARY}>
+              <ArrowLeftIcon className="h-4 w-4" />
+              {translate('product.back')}
+            </Link>
+            <SubscribeButton language={language} />
+          </div>
+        </div>
       </div>
-    </main>
+    </PageShell>
   );
 }
